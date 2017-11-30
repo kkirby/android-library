@@ -1,0 +1,18 @@
+{
+  "name": "android-lib",
+  "version": "1.0.0",
+  "description": "A command line utility to create and update library projects, similar to how things were in the android platform.",
+  "main": "index.js",
+  "keywords": ["android","library"],
+  "author": "Kyle Kirbatski",
+  "license": "The Unlicense",
+  "dependencies": {
+    "adm-zip": "^0.4.7",
+    "argparse": "^1.0.9",
+    "mustache": "^2.3.0",
+    "shelljs": "^0.7.8"
+  },
+  "bin": {
+	 "android-lib": "./index.js"
+  }
+}
