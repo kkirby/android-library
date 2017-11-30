@@ -6,7 +6,7 @@
 
 ## Usage
 
-    usage: index.js [-h] [-v] {create,update} ...
+    usage: android-library [-h] [-v] {create,update} ...
 
     CLI tool to manage android libraries
 
@@ -20,7 +20,7 @@
     
 ### Create
 
-    usage: index.js create [-h] -t TARGET -n NAME -k PACKAGE -p PATH [-s SDK]
+    usage: android-library create [-h] -t TARGET -n NAME -k PACKAGE -p PATH [-s SDK]
 
     Create a library project
 
@@ -36,7 +36,7 @@
 
 ### Update
 
-    usage: index.js update [-h] -t TARGET -p PATH [-s SDK]
+    usage: android-library update [-h] -t TARGET -p PATH [-s SDK]
 
     Updates a library project
 
