@@ -1,6 +1,4 @@
-//no-babel
-
-var targetPath = '/Users/kkirbatski/Desktop/android-test2';
+#!/usr/bin/env node
 
 var Mustache = require('mustache');
 var AdmZip = require('adm-zip');
@@ -8,7 +6,6 @@ var path = require('path');
 var shell = require('shelljs')
 var fs = require('fs');
 let ArgumentParser = require('argparse').ArgumentParser;
-
 
 var argumentParser = new ArgumentParser({
 	version: '0.0.1',
