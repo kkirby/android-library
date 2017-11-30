@@ -149,7 +149,6 @@ else if(args.command == 'update'){
 	var localProperties = '';
 	
 	if(!fs.pathExistsSync(localPropertiesPath)){
-		console.log('adsf');
 		archive.extractEntryTo("local.properties",args.path);
 		template(localPropertiesPath)
 	}
