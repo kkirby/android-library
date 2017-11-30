@@ -1,6 +1,7 @@
 dependencies:
   adm-zip: 0.4.7
   argparse: 1.0.9
+  fs-extra: 4.0.2
   mustache: 2.3.0
   shelljs: 0.7.8
 packages:
@@ -24,6 +25,13 @@ packages:
   /concat-map/0.0.1:
     resolution:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
+  /fs-extra/4.0.2:
+    dependencies:
+      graceful-fs: 4.1.11
+      jsonfile: 4.0.0
+      universalify: 0.1.1
+    resolution:
+      integrity: sha1-+RcExT0bRh+JNFKwwwfZmXZHq2s=
   /fs.realpath/1.0.0:
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
@@ -37,6 +45,9 @@ packages:
       path-is-absolute: 1.0.1
     resolution:
       integrity: sha512-MJTUg1kjuLeQCJ+ccE4Vpa6kKVXkPYJ2mOCQyUuKLcLQsdrMCpBPUi8qVE6+YuaJkozeA9NusTAw3hLr8Xe5EQ==
+  /graceful-fs/4.1.11:
+    resolution:
+      integrity: sha1-Dovf5NHduIVNZOBOp8AOKgJuVlg=
   /inflight/1.0.6:
     dependencies:
       once: 1.4.0
@@ -49,6 +60,11 @@ packages:
   /interpret/1.1.0:
     resolution:
       integrity: sha1-ftGxQQxqDg94z5XTuEQMY/eLhhQ=
+  /jsonfile/4.0.0:
+    optionalDependencies:
+      graceful-fs: 4.1.11
+    resolution:
+      integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.8
@@ -88,6 +104,9 @@ packages:
   /sprintf-js/1.0.3:
     resolution:
       integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
+  /universalify/0.1.1:
+    resolution:
+      integrity: sha1-+nG63UQ3r0wUiEHjs7Fl+enlkLc=
   /wrappy/1.0.2:
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
@@ -96,5 +115,6 @@ shrinkwrapVersion: 3
 specifiers:
   adm-zip: ^0.4.7
   argparse: ^1.0.9
+  fs-extra: ^4.0.2
   mustache: ^2.3.0
   shelljs: ^0.7.8

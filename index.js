@@ -4,7 +4,7 @@ var Mustache = require('mustache');
 var AdmZip = require('adm-zip');
 var path = require('path');
 var shell = require('shelljs')
-var fs = require('fs');
+var fs = require('fs-extra');
 let ArgumentParser = require('argparse').ArgumentParser;
 
 var argumentParser = new ArgumentParser({
@@ -112,31 +112,31 @@ create.addArgument(
 
 var args = argumentParser.parseArgs();
 
+function template(path){
+	let contents = fs.readFileSync(path).toString();
+	if(contents.indexOf('{{') !== -1){
+		fs.writeFileSync(path,Mustache.render(
+			contents,
+			{
+				packageName: args.package,
+				name: args.name,
+				target: args.target,
+				sdkDir: args.sdk
+			}
+		));
+	}
+}
+
+var archive = new AdmZip(path.join(__dirname,'lib_project.zip'));
+
 if(args.command == 'create'){
-	var archive = new AdmZip(path.join(__dirname,'lib_project.zip'));
 	archive.extractAllTo(args.path);
 
 	shell.find(args.path).filter(
 		function(item){
 			return item.match(/\.(?!png)[a-z]+$/);
 		}
-	).map(
-		function(item){
-			let contents = fs.readFileSync(item);
-			if(contents.indexOf('{{') !== -1){
-				contents = Mustache.render(
-					contents.toString(),
-					{
-						packageName: args.package,
-						name: args.name,
-						target: args.target,
-						sdkDir: args.sdk
-					}
-				);
-				fs.writeFileSync(item,contents);
-			}
-		}
-	);
+	).map(template);
 	
 	console.log('Created');
 }
@@ -146,14 +146,24 @@ else if(args.command == 'update'){
 		'local.properties'
 	);
 	
-	let localProperties = fs.readFileSync(localPropertiesPath);
+	var localProperties = '';
 	
-	localProperties = localProperties.toString().replace(
-		/^sdk\.dir\s*=.*$/m,
-		'sdk.dir=' + args.sdk
-	);
+	if(!fs.pathExistsSync(localPropertiesPath)){
+		console.log('adsf');
+		archive.extractEntryTo("local.properties",args.path);
+		template(localPropertiesPath)
+	}
+	else {
+		let localProperties = fs.readFileSync(localPropertiesPath);
 	
-	fs.writeFileSync(localPropertiesPath,localProperties);
+		localProperties = localProperties.toString().replace(
+			/^sdk\.dir\s*=.*$/m,
+			'sdk.dir=' + args.sdk
+		);
+		
+		fs.writeFileSync(localPropertiesPath,localProperties);
+	}
+	
 	
 	///
 	
@@ -162,14 +172,20 @@ else if(args.command == 'update'){
 		'project.properties'
 	);
 	
-	let projectProperties = fs.readFileSync(projectPropertiesPath);
+	if(!fs.pathExistsSync(projectPropertiesPath)){
+		archive.extractEntryTo("project.properties",args.path);
+		template(projectPropertiesPath)
+	}
+	else {
+		let projectProperties = fs.readFileSync(projectPropertiesPath);
 	
-	projectProperties = projectProperties.toString().replace(
-		/^target\s*=.*$/m,
-		'target=' + args.target
-	);
+		projectProperties = projectProperties.toString().replace(
+			/^target\s*=.*$/m,
+			'target=' + args.target
+		);
 	
-	fs.writeFileSync(projectPropertiesPath,projectProperties);
+		fs.writeFileSync(projectPropertiesPath,projectProperties);
+	}
 	
 	console.log('Updated');
 }
